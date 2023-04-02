@@ -16,9 +16,9 @@ import {
 } from '../../../src/index.mjs';
 import { sessionMiddleWare } from '../../../src/middleWare/session/index.mjs';
 import { Context } from 'koa';
-@Controller('/hello')
+@Controller('hello')
 export class ImageToPptController {
-  @Post()
+  @Post('123')
   async get(
     @Body() @Required() @IsNumber('a', { range: [1, 10] }) a: string,
     ctx: Context
@@ -51,7 +51,7 @@ export class ImageToPptController {
   /**
    * 异常
    */
-  @Get('/error')
+  @Get('error')
   async xx(): Promise<unknown> {
     throw new ResponseError({ error: '0', error_description: '错误!' });
   }
@@ -60,6 +60,7 @@ export class ImageToPptController {
 startServer({
   port: 3000,
   controllers: [new ImageToPptController()],
+  routerPrefix: '/api',
   middlewares: [
     sessionMiddleWare({
       // redisOptions: {

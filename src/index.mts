@@ -6,14 +6,16 @@ import { ControllerInterface } from './controller/type.mjs';
 
 export function startServer({
   controllers,
+  routerPrefix = '/',
   middlewares,
+  appKeys = ['123456'],
   port,
   options,
 }: Props) {
   const app = new Koa();
   app.context.myOptions = options || {};
-  // cookies 依赖需要这个key,用于防止生成的 cookie 的 被串改 todo: 配置。
-  app.keys = ['123456', '123456'];
+  // cookies 依赖需要这个key,用于防止生成的 cookie 的 被串改
+  app.keys = appKeys;
   const router = new Router();
   for (const middleware of middlewares) {
     app.use(middleware);
@@ -25,7 +27,7 @@ export function startServer({
       // @ts-ignore
       controller = new controller();
     }
-    setController(router, controller as ControllerInterface);
+    setController(router, routerPrefix, controller as ControllerInterface);
   }
   app.use(router.routes());
   app.listen(port);
@@ -35,6 +37,8 @@ interface Props {
   middlewares: Application.Middleware[];
   controllers: unknown[];
   port: number;
+  routerPrefix?: string;
+  appKeys?: string[];
   options?: {
     // 服务器标识符,请求错误时会自动带上
     iss?: string;

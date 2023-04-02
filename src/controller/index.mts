@@ -9,21 +9,29 @@ import { ParamType } from './enum.mjs';
 import { File as MulterFile } from '@koa/multer';
 import { groupBy } from 'lodash-es';
 import { paramValidate } from './paramValidate.mjs';
+import { routerPathConcat } from '../utils/index.mjs';
 
-export function setController(router: Router, controller: ControllerInterface) {
+export function setController(
+  router: Router,
+  routerPrefix = '/',
+  controller: ControllerInterface
+) {
   const { prefix, routerOptionMap }: ControllerPrototype =
     controller.constructor.prototype;
   for (const routerName in routerOptionMap) {
     const { method, path, cb, params } = routerOptionMap[routerName];
-    router[method!](prefix + path, async (context) => {
-      const paramValues = getParams(params, context);
-      if (params) {
-        for (let i = 0; i < params!.length; i++) {
-          paramValidate(paramValues[i], params![i]);
+    router[method!](
+      routerPathConcat(routerPrefix, prefix, path),
+      async (context) => {
+        const paramValues = getParams(params, context);
+        if (params) {
+          for (let i = 0; i < params!.length; i++) {
+            paramValidate(paramValues[i], params![i]);
+          }
         }
+        return cb!.call(controller, ...paramValues, context);
       }
-      return cb!.call(controller, ...paramValues, context);
-    });
+    );
   }
 }
 
