@@ -2,7 +2,6 @@
   "name": "wittyna",
   "type": "module",
   "version": "0.0.1",
-  "description": "witty-koa",
   "main": "dist/index.mjs",
   "types": "dist/index.d.mts",
   "scripts": {
