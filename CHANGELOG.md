@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/wittyna/wittyna/compare/v0.0.2...v0.0.3) (2023-04-07)
+
+
+### Bug Fixes
+
+* first ([4a38314](https://github.com/wittyna/wittyna/commit/4a383148fa8f52f9262ed1897a3e4d4e2ce10835))
+
 ## 0.0.2 (2023-04-07)
 
 
