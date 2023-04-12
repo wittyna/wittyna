@@ -11,7 +11,6 @@ import {
   Put,
   ResponseError,
   Required,
-  Reg,
   IsNumber,
 } from '../../../src/index.mjs';
 import { sessionMiddleWare,staticMiddleWare} from '../../../src/index.mjs';
