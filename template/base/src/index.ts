@@ -14,9 +14,8 @@ import {
   Reg,
   IsNumber,
 } from '../../../src/index.mjs';
-import { sessionMiddleWare } from "../../../src/index.mjs";
+import { sessionMiddleWare,staticMiddleWare} from '../../../src/index.mjs';
 import { Context } from 'koa';
-import { staticMiddleWare } from "../../../src/middleWare/static/index.mjs";
 import { createRequire } from "module";
 import { dirname } from 'path';
 
