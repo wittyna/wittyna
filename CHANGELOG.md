@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/wittyna/wittyna/compare/v0.0.4...v0.0.5) (2023-04-12)
+
+
+### Bug Fixes
+
+* staticMiddleware ([c47e7ec](https://github.com/wittyna/wittyna/commit/c47e7ec7187b582bed5eca4612c1b1760829fee6))
+
 ## [0.0.4](https://github.com/wittyna/wittyna/compare/v0.0.3...v0.0.4) (2023-04-12)
 
 
