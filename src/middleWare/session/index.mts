@@ -6,8 +6,6 @@ import session, {
 import Redis, { RedisOptions } from 'ioredis';
 import Koa from 'koa';
 
-// todo 没有redisOptions用内存维护。
-// todo 通过ignorePath过滤掉一些不需要session的请求。
 export function sessionMiddleWare({
   redisOptions,
   ignorePath,

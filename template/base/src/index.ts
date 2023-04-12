@@ -16,6 +16,11 @@ import {
 } from '../../../src/index.mjs';
 import { sessionMiddleWare } from "../../../src/index.mjs";
 import { Context } from 'koa';
+import { staticMiddleWare } from "../../../src/middleWare/static/index.mjs";
+import { createRequire } from "module";
+import { dirname } from 'path';
+
+
 @Controller('hello')
 export class ImageToPptController {
   @Post('123')
@@ -69,6 +74,7 @@ startServer({
   controllers: [new ImageToPptController()],
   routerPrefix: '/api',
   middlewares: [
+    staticMiddleWare({ root: dirname(new URL(import.meta.url).pathname), path: '/public' }),
     sessionMiddleWare({}),
     responseMiddleWare(),
     bodyMiddleWare(),
