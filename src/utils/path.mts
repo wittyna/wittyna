@@ -2,7 +2,7 @@ export const routerPathConcat = (...paths: (string | undefined)[]) => {
   let res = '';
   for (let path of paths) {
     if (!path) {
-      path = '';
+      continue;
     }
     const path_ = path.trim() as string;
 

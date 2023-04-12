@@ -14,12 +14,13 @@ import {
   Reg,
   IsNumber,
 } from '../../../src/index.mjs';
-import { sessionMiddleWare } from '../../../src/middleWare/session/index.mjs';
+import { sessionMiddleWare } from "../../../src/index.mjs";
 import { Context } from 'koa';
 @Controller('hello')
 export class ImageToPptController {
   @Post('123')
   async get(
+    @Query('a') b: string,
     @Body() @Required() @IsNumber('a', { range: [1, 10] }) a: string,
     ctx: Context
   ): Promise<unknown> {
@@ -28,7 +29,13 @@ export class ImageToPptController {
     session.count = session.count || 0;
     session.count++;
     console.log(session.count);
+    console.log(ctx.request.hostname,ctx.request.originalUrl, ctx.request.path, ctx.request.querystring);
     return { count: session.count, a };
+  }
+
+  @Post('555')
+  async xxxxx(@Query('a') a: string): Promise<unknown> {
+    return a
   }
 
   /**
@@ -62,14 +69,7 @@ startServer({
   controllers: [new ImageToPptController()],
   routerPrefix: '/api',
   middlewares: [
-    sessionMiddleWare({
-      // redisOptions: {
-      //   host: '127.0.0.1',
-      //   port: 6379,
-      //   password: undefined,
-      //   db: 0,
-      // },
-    }),
+    sessionMiddleWare({}),
     responseMiddleWare(),
     bodyMiddleWare(),
   ],

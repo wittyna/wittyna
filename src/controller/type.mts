@@ -6,6 +6,7 @@ export interface ControllerPrototype {
     [name: string]: RouterOption;
   };
 }
+
 export interface RouterOption {
   path?: string;
   method?: Method;
