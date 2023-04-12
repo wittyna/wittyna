@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4](https://github.com/wittyna/wittyna/compare/v0.0.3...v0.0.4) (2023-04-12)
+
+
+### Bug Fixes
+
+* first ([3f39c8e](https://github.com/wittyna/wittyna/commit/3f39c8ea6f607d7615a7cdff8e9b8c5d70de72e9))
+* router path bug fix ([dd61776](https://github.com/wittyna/wittyna/commit/dd61776dc8847036d7dbec48509d570ca4e02f0d))
+
 ## [0.0.3](https://github.com/wittyna/wittyna/compare/v0.0.2...v0.0.3) (2023-04-07)
 
 
