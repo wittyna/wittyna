@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.6](https://github.com/wittyna/wittyna/compare/v0.0.5...v0.0.6) (2023-04-12)
+
+
+### Bug Fixes
+
+* staticMiddleware ([b0010ec](https://github.com/wittyna/wittyna/commit/b0010ecfcab0cc4ffea09859e8dcc6a3f1aa4a06))
+* staticMiddleware ([f34f6d0](https://github.com/wittyna/wittyna/commit/f34f6d0313953bdc062f9a1e48bfc250875ba5fa))
+* staticMiddleware ([3fef342](https://github.com/wittyna/wittyna/commit/3fef342e1e4bb559e2b1c7f504c427e17ad9512e))
+* staticMiddleware ([a76a134](https://github.com/wittyna/wittyna/commit/a76a1341cf39dd8a31e04b851fa6a0cee2ac7d54))
+
 ## [0.0.5](https://github.com/wittyna/wittyna/compare/v0.0.4...v0.0.5) (2023-04-12)
 
 
