@@ -16,7 +16,6 @@ import {
 } from '../../../src/index.mjs';
 import { sessionMiddleWare,staticMiddleWare} from '../../../src/index.mjs';
 import { Context } from 'koa';
-import { createRequire } from "module";
 import { dirname } from 'path';
 
 
