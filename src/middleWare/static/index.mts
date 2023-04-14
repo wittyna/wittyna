@@ -17,6 +17,14 @@ export function staticMiddleWare({
         ctx.request.url.startsWith(path)) ||
       (path instanceof RegExp && path.test(ctx.request.url))
     ) {
+      // 如果是文件夹，重定向到文件夹下的 index.html
+      if (
+        ctx.request.url.indexOf('.') === -1 &&
+        !ctx.request.url.endsWith('/')
+      ) {
+        ctx.redirect(ctx.request.originalUrl + '/');
+        return;
+      }
       return static_(ctx, async () => {});
     }
     return next();
