@@ -3,3 +3,4 @@ export { responseMiddleWare, ResponseError } from './response/index.mjs';
 export { mongodbMiddleWare, MongodbParam } from './mongodb/index.mjs';
 export { sessionMiddleWare } from './session/index.mjs';
 export { staticMiddleWare } from './static/index.mjs';
+export { authMiddleWare } from './auth/index.mjs';
