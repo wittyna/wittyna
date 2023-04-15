@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.7](https://github.com/wittyna/wittyna/compare/v0.0.6...v0.0.7) (2023-04-15)
+
+
+### Bug Fixes
+
+* auth middleWare ([7195cfe](https://github.com/wittyna/wittyna/commit/7195cfe2593bf1c8ce9e4dccb1fe165335f06058))
+* auth middleWare ([cb96f10](https://github.com/wittyna/wittyna/commit/cb96f10a27a13bd523196574b642b0ee0539028c))
+* static组件自动重定向到文件夹下的html ([d1cbc1b](https://github.com/wittyna/wittyna/commit/d1cbc1b8494a7474621b94f090906f929bc47e5b))
+* static组件自动重定向到文件夹下的html,response中间件bug修复 ([a183d2e](https://github.com/wittyna/wittyna/commit/a183d2e1e2384cee1dd3b844ede49a768e1b27b4))
+* 暴露path ([5942716](https://github.com/wittyna/wittyna/commit/59427161df5fe4b4f5d47323303745864ed9fb8f))
+
 ## [0.0.6](https://github.com/wittyna/wittyna/compare/v0.0.5...v0.0.6) (2023-04-12)
 
 
