@@ -7,7 +7,7 @@ export function responseMiddleWare({
 }: { format?: (resBody: unknown) => unknown } = {}): Koa.Middleware {
   return async (context, next) => {
     try {
-      const value = await next();
+      const value = (await next()) || context.body;
       if (value) {
         if (!format) {
           context.body = value;
