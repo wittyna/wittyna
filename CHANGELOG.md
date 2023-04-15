@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.8](https://github.com/wittyna/wittyna/compare/v0.0.7...v0.0.8) (2023-04-15)
+
+
+### Bug Fixes
+
+* auth middleWare ([e61cdca](https://github.com/wittyna/wittyna/commit/e61cdca7bd44b217f10728a9ac9b309d0d6711f2))
+
 ## [0.0.7](https://github.com/wittyna/wittyna/compare/v0.0.6...v0.0.7) (2023-04-15)
 
 
