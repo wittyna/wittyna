@@ -1,4 +1,4 @@
-import Koa, { Next } from 'koa';
+import Koa from 'koa';
 import multer, { Options, File } from '@koa/multer';
 import { rm } from 'node:fs/promises';
 import bodyParser from 'koa-bodyparser';

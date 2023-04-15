@@ -40,7 +40,7 @@ export const authMiddleWare = ({
   let jwtPublicKey: Buffer;
   setTimeout(() => {
     axios
-      .get(`${authServerOrigin}/auth/jwtPublicKey`, {
+      .get(`${authServerOrigin}/jwtPublicKey`, {
         responseType: 'arraybuffer',
       })
       .then((res) => {
@@ -64,7 +64,7 @@ export const authMiddleWare = ({
     const code_verifier = Math.random().toString(36).slice(2);
     const session = context.session as any;
     session.code_verifier = code_verifier;
-    const redirect_uri = new URL(`${authServerOrigin}/auth/authorize`);
+    const redirect_uri = new URL(`${authServerOrigin}/authorize`);
     const clientAuthorizeUrl_ = new URL(clientAuthorizeUrl);
     if (redirect_uri_) {
       clientAuthorizeUrl_.searchParams.set('redirect_uri', redirect_uri_);
@@ -124,7 +124,7 @@ export const authMiddleWare = ({
             refresh_token: string;
             id_token: string;
           }>(
-            authServerOrigin + '/auth/token',
+            authServerOrigin + '/token',
             {},
             {
               params: {
@@ -167,12 +167,12 @@ export const authMiddleWare = ({
       }
     } else if (context.path === clientLogoutApiPath) {
       try {
-        await axios.get(authServerOrigin + '/auth/logout', {
+        await axios.get(authServerOrigin + '/logout', {
           params: {
             access_token: session.access_token,
           },
         });
-        const authLogoutUrl = new URL(authServerOrigin + '/auth/logout');
+        const authLogoutUrl = new URL(authServerOrigin + '/logout');
         const clientAuthorizeUrl_ = new URL(clientAuthorizeUrl);
         if (context.query.redirect_uri) {
           clientAuthorizeUrl_.searchParams.set(
@@ -205,7 +205,7 @@ export const authMiddleWare = ({
       if (session.access_token) {
         try {
           const { data } = await axios({
-            url: authServerOrigin + '/auth/user/info',
+            url: authServerOrigin + '/user/info',
             method: 'GET',
             headers: {
               Authorization: `${session.token_type} ${session.access_token}`,
@@ -238,7 +238,7 @@ export const authMiddleWare = ({
             refresh_token: string;
             id_token: string;
           }>(
-            authServerOrigin + '/auth/token',
+            authServerOrigin + '/token',
             {},
             {
               params: {
