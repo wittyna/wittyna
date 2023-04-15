@@ -93,6 +93,7 @@ export const authMiddleWare = ({
     session.id_token = undefined;
     session.refresh_token = undefined;
     session.token_info = undefined;
+    session.code_verifier = undefined;
     const clientAuthorizeUrl_ = new URL(clientAuthorizeUrl);
     if (state) {
       clientAuthorizeUrl_.searchParams.set('state', state);
@@ -211,7 +212,6 @@ export const authMiddleWare = ({
               Authorization: `${session.token_type} ${session.access_token}`,
             },
           });
-          console.log(data, 111);
           context.body = data;
         } catch (e) {
           return setError2({
