@@ -1,6 +1,6 @@
 export const routerPathConcat = (...paths: (string | undefined)[]) => {
   let res = '';
-  for (let path of paths) {
+  for (const path of paths) {
     if (!path) {
       continue;
     }
@@ -18,7 +18,7 @@ export const routerPathConcat = (...paths: (string | undefined)[]) => {
   return res;
 };
 
-function pathConcat(path1: string, path2: string) {
+export function pathConcat(path1: string, path2: string) {
   if (path1.endsWith('/')) {
     path1 = path1.slice(0, -1);
   }
