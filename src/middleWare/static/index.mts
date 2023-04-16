@@ -4,7 +4,7 @@ import { Method } from '../../controller/enum.mjs';
 
 export function staticMiddleWare({
   root,
-  pathPrefix = '/',
+  pathPrefix,
   ignorePathPrefix,
 }: {
   root: string;
@@ -13,19 +13,16 @@ export function staticMiddleWare({
 }): Koa.Middleware {
   const static_ = koaStatic(root);
   return async (ctx, next) => {
-    if (ctx.originalUrl.indexOf('/') === -1) {
-      ctx.redirect(ctx.originalUrl + '/' + ctx.request.search);
-      return;
-    }
     if (ignorePathPrefix && ctx.request.url.startsWith(ignorePathPrefix)) {
       return next();
     }
     if (
       ctx.method.toLowerCase() === Method.GET &&
-      ctx.request.url.startsWith(pathPrefix)
+      (!pathPrefix || ctx.request.url.startsWith(pathPrefix))
     ) {
       // 如果是文件夹，重定向到文件夹下的 index.html
       if (
+        ctx.request.path &&
         ctx.request.path.indexOf('.') === -1 &&
         !ctx.request.path.endsWith('/')
       ) {
