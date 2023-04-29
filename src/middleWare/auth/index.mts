@@ -3,11 +3,13 @@ import axios from 'axios';
 import { createHash } from 'node:crypto';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { pathConcat } from '../../utils/index.mjs';
-
+import chalk from 'chalk';
 export const sha256 = (data: string) =>
   createHash('sha256').update(data).digest('base64url');
+const success = chalk.bold.green;
+const warn = chalk.bold.yellow;
+
 // after sessionMiddleWare
-// todo jwt public key 校验
 export const authMiddleWare = ({
   client_id,
   client_secret,
@@ -38,18 +40,24 @@ export const authMiddleWare = ({
   const clientLogoutApiPath = pathConcat(apiPrefix_.pathname, '/logout');
   const clientUserInfoApiPath = pathConcat(apiPrefix_.pathname, '/userInfo');
   let jwtPublicKey: Buffer;
-  setTimeout(() => {
-    axios
-      .get(`${authServerOrigin}/auth/jwtPublicKey`, {
-        responseType: 'arraybuffer',
-      })
-      .then((res) => {
-        jwtPublicKey = res.data;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, 5000);
+  function getJwtPublicKey() {
+    setTimeout(async () => {
+      try {
+        const { data } = await axios.get(
+          `${authServerOrigin}/auth/jwtPublicKey`,
+          {
+            responseType: 'arraybuffer',
+          }
+        );
+        jwtPublicKey = data;
+        console.log(success('get jwtPublicKey success'));
+      } catch (e) {
+        console.log(warn('cannot get jwtPublicKey, retry after 3s'));
+        getJwtPublicKey();
+      }
+    }, 3000);
+  }
+  getJwtPublicKey();
 
   function setError({
     context,
