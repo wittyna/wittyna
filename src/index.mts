@@ -13,6 +13,7 @@ export function startServer({
   options,
 }: Props) {
   const app = new Koa();
+
   app.context.myOptions = options || {};
   // cookies 依赖需要这个key,用于防止生成的 cookie 的 被串改
   app.keys = appKeys;
