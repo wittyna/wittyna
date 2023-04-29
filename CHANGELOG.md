@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.10](https://github.com/wittyna/wittyna/compare/v0.0.9...v0.0.10) (2023-04-29)
+
+
+### Bug Fixes
+
+* **auth middleWare:** optimize get jwtPublicKey ([bcfc5e3](https://github.com/wittyna/wittyna/commit/bcfc5e3f40ade48b224660bb9fe4882fb47b3b3f))
+* static middleWare ([553a766](https://github.com/wittyna/wittyna/commit/553a76630a97a6946427960b7b3853bd70d338b8))
+
 ## [0.0.9](https://github.com/wittyna/wittyna/compare/v0.0.8...v0.0.9) (2023-04-15)
 
 
