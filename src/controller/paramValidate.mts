@@ -5,7 +5,12 @@ import { ResponseErrorType } from '../middleWare/response/Error.mjs';
 
 function requiredValidate(value: unknown, path?: string): boolean {
   if (!path) {
-    if ((typeof value !== 'number' && isEmpty(value)) || Number.isNaN(value)) {
+    if (
+      (typeof value !== 'number' &&
+        typeof value !== 'boolean' &&
+        isEmpty(value)) ||
+      Number.isNaN(value)
+    ) {
       return false;
     }
   } else {
