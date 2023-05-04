@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.13](https://github.com/wittyna/wittyna/compare/v0.0.12...v0.0.13) (2023-05-04)
+
+
+### Bug Fixes
+
+* **auth middleWare:** 代码风格修改，驼峰式 ([220cd62](https://github.com/wittyna/wittyna/commit/220cd62f968c80ea30a3e6a12f9beb183fe67348))
+
 ## [0.0.12](https://github.com/wittyna/wittyna/compare/v0.0.11...v0.0.12) (2023-05-03)
 
 
