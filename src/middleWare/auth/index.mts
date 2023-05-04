@@ -11,16 +11,16 @@ const warn = chalk.bold.yellow;
 
 // after sessionMiddleWare
 export const authMiddleWare = ({
-  client_id,
-  client_secret,
+  clientId,
+  clientSecret,
   apiPrefix,
   uiUrl,
   authServerOrigin,
 }: {
   // 客户端id
-  client_id: string;
+  clientId: string;
   // 客户端密钥
-  client_secret: string;
+  clientSecret: string;
   // api前缀,用于识别api接口进入
   apiPrefix: string;
   // 客户端ui的url，clientAuthorizeUrl认证通过后会默认跳转到这个地址
@@ -77,7 +77,7 @@ export const authMiddleWare = ({
     if (redirect_uri_) {
       clientAuthorizeUrl_.searchParams.set('redirect_uri', redirect_uri_);
     }
-    redirect_uri.searchParams.set('client_id', client_id);
+    redirect_uri.searchParams.set('client_id', clientId);
     redirect_uri.searchParams.set('response_type', 'code');
     redirect_uri.searchParams.set('redirect_uri', clientAuthorizeUrl_.href);
     redirect_uri.searchParams.set('code_challenge', sha256(code_verifier));
@@ -87,27 +87,27 @@ export const authMiddleWare = ({
   }
   function setError2({
     context,
-    redirect_uri_,
+    redirect_uri,
     redirect,
     state,
   }: {
     context: Context;
     state?: string;
     redirect?: boolean;
-    redirect_uri_?: string;
+    redirect_uri?: string;
   }) {
     const session = context.session as any;
     session.access_token = undefined;
     session.id_token = undefined;
     session.refresh_token = undefined;
-    session.token_info = undefined;
+    session.tokenInfo = undefined;
     session.code_verifier = undefined;
     const clientAuthorizeUrl_ = new URL(clientAuthorizeUrl);
     if (state) {
       clientAuthorizeUrl_.searchParams.set('state', state);
     }
-    if (redirect_uri_) {
-      clientAuthorizeUrl_.searchParams.set('redirect_uri', redirect_uri_);
+    if (redirect_uri) {
+      clientAuthorizeUrl_.searchParams.set('redirect_uri', redirect_uri);
     }
     if (redirect) {
       context.redirect(clientAuthorizeUrl_.href);
@@ -138,16 +138,16 @@ export const authMiddleWare = ({
             {
               params: {
                 code: context.request?.query?.code,
-                client_id,
-                client_secret,
+                client_id: clientId,
+                client_secret: clientSecret,
                 grant_type: 'authorization_code',
                 code_verifier: context.session?.code_verifier,
               },
             }
           );
-          const token_info = getJwtInfo(data.id_token, jwtPublicKey);
+          const tokenInfo = getJwtInfo(data.id_token, jwtPublicKey);
           Object.assign(session, data);
-          session.token_info = token_info;
+          session.tokenInfo = tokenInfo;
           let uiUrl_ = new URL(uiUrl);
           if (context.request?.query?.redirect_uri) {
             uiUrl_ = new URL(context.request?.query?.redirect_uri as string);
@@ -205,7 +205,7 @@ export const authMiddleWare = ({
         setError2({
           context: context as Context,
           redirect: true,
-          redirect_uri_: context.query.redirect_uri as string,
+          redirect_uri: context.query.redirect_uri as string,
           state: context.query.state as string,
         });
       }
@@ -235,9 +235,9 @@ export const authMiddleWare = ({
     }
 
     if (context.path.startsWith(apiPrefixPath)) {
-      if (!session.token_info) {
+      if (!session.tokenInfo) {
         return setError2({ context: context as Context });
-      } else if (session.token_info.exp! * 1000 < Date.now() - 1000 * 60) {
+      } else if (session.tokenInfo.exp! * 1000 < Date.now() - 1000 * 60) {
         try {
           const { data } = await axios.post<{
             access_token: string;
@@ -251,15 +251,15 @@ export const authMiddleWare = ({
             {
               params: {
                 refresh_token: session.refresh_token,
-                client_id,
-                client_secret,
+                client_id: clientId,
+                client_secret: clientSecret,
                 grant_type: 'refresh_token',
               },
             }
           );
-          const token_info = getJwtInfo(data.id_token, jwtPublicKey);
+          const tokenInfo = getJwtInfo(data.id_token, jwtPublicKey);
           Object.assign(session, data);
-          session.token_info = token_info;
+          session.tokenInfo = tokenInfo;
           return next();
         } catch (e) {
           return setError2({ context: context as Context });
