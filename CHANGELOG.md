@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.15](https://github.com/wittyna/wittyna/compare/v0.0.14...v0.0.15) (2023-06-04)
+
+
+### Bug Fixes
+
+* **auth middleWare:** 支持 header authorization ([d90e9ab](https://github.com/wittyna/wittyna/commit/d90e9abdbc8ed005f111d8798747e7cb39144178))
+
 ## [0.0.14](https://github.com/wittyna/wittyna/compare/v0.0.13...v0.0.14) (2023-06-04)
 
 
