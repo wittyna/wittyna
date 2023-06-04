@@ -84,6 +84,7 @@ export const authMiddleWare = ({
     redirect_uri.searchParams.set('state', state || '');
     context.redirect(redirect_uri.href);
   }
+
   function setError2({
     context,
     redirect_uri,
