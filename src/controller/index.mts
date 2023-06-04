@@ -7,7 +7,7 @@ import {
 import Koa from 'koa';
 import { ParamType } from './enum.mjs';
 import { File as MulterFile } from '@koa/multer';
-import { groupBy } from 'lodash-es';
+import { at, groupBy } from 'lodash-es';
 import { paramValidate } from './paramValidate.mjs';
 import { routerPathConcat } from '../utils/index.mjs';
 
@@ -77,7 +77,7 @@ function getParams(
           }
         case ParamType.SESSION:
           if (param.param) {
-            return context.session[param.param];
+            return at(context.session, param.param)?.[0];
           } else {
             return context.session;
           }

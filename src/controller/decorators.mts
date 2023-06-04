@@ -211,8 +211,11 @@ export function Session(key = ''): ParameterDecorator {
   return commonParamGen(key, ParamType.SESSION);
 }
 
-export function UserInfo(): ParameterDecorator {
-  return commonParamGen('userInfo', ParamType.SESSION);
+// export function UserInfo(): ParameterDecorator {
+//   return commonParamGen('userInfo', ParamType.SESSION);
+// }
+export function UserId(): ParameterDecorator {
+  return commonParamGen('tokenInfo.userId', ParamType.SESSION);
 }
 
 export function Mongodb(): ParameterDecorator {
