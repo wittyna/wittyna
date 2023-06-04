@@ -35,7 +35,6 @@ export const authMiddleWare = ({
     throw new Error('authMiddleWare: authServerOrigin is required');
   }
   const apiPrefix_ = new URL(apiPrefix);
-  const apiPrefixPath = apiPrefix_.pathname;
   const clientAuthorizeUrl = pathConcat(apiPrefix, '/authorize');
   const clientLogoutApiPath = pathConcat(apiPrefix_.pathname, '/logout');
   const clientUserInfoApiPath = pathConcat(apiPrefix_.pathname, '/userInfo');
@@ -123,6 +122,7 @@ export const authMiddleWare = ({
   return async (context, next) => {
     const session = context.session as any;
     const clientAuthorizeUrl_ = new URL(clientAuthorizeUrl);
+    // /authorize 授权
     if (context.path === clientAuthorizeUrl_.pathname) {
       if (context.request?.query?.code && context.session?.code_verifier) {
         try {
@@ -174,11 +174,38 @@ export const authMiddleWare = ({
           redirect_uri_: context.request?.query?.redirect_uri as string,
         });
       }
-    } else if (context.path === clientLogoutApiPath) {
+    }
+    // 如果带header authorization token
+    if (context.headers.authorization) {
+      const [tokenType, token] = context.headers.authorization.split(' ');
+      if (token.indexOf('.') > -1) {
+        session.id_token = token;
+        session.token_type = tokenType;
+        session.tokenInfo = getJwtInfo(token, jwtPublicKey);
+      } else {
+        session.access_token = token;
+        const { data } = await axios({
+          url: authServerOrigin + '/auth/user/info',
+          method: 'GET',
+          headers: {
+            Authorization: `${session.token_type} ${
+              session.access_token || session.id_token
+            }`,
+          },
+        });
+        session.tokenInfo = {
+          userId: data.id,
+          clientId,
+        };
+      }
+    }
+    // /logout 登出
+    if (context.path === clientLogoutApiPath) {
       try {
         await axios.get(authServerOrigin + '/auth/logout', {
           params: {
-            access_token: session.access_token,
+            access_token: session.access_token || '',
+            id_token: session.id_token || '',
           },
         });
         const authLogoutUrl = new URL(authServerOrigin + '/auth/logout');
@@ -210,14 +237,55 @@ export const authMiddleWare = ({
         });
       }
       return;
-    } else if (context.path === clientUserInfoApiPath) {
-      if (session.access_token) {
+    }
+
+    if (!session.id_token && !session.access_token) {
+      return setError2({ context: context as Context });
+    }
+    // 刷新token
+    else if (
+      session.refresh_token &&
+      session.tokenInfo.exp! * 1000 < Date.now() - 1000 * 60
+    ) {
+      try {
+        const { data } = await axios.post<{
+          access_token: string;
+          token_type: 'Bearer';
+          expires_in: string;
+          refresh_token: string;
+          id_token: string;
+        }>(
+          authServerOrigin + '/auth/token',
+          {},
+          {
+            params: {
+              refresh_token: session.refresh_token,
+              client_id: clientId,
+              client_secret: clientSecret,
+              grant_type: 'refresh_token',
+            },
+          }
+        );
+        const tokenInfo = getJwtInfo(data.id_token, jwtPublicKey);
+        Object.assign(session, data);
+        session.tokenInfo = tokenInfo;
+        return next();
+      } catch (e) {
+        return setError2({ context: context as Context });
+      }
+    }
+
+    // /user/info 获取用户信息
+    else if (context.path === clientUserInfoApiPath) {
+      if (session.access_token || session.id_token) {
         try {
           const { data } = await axios({
             url: authServerOrigin + '/auth/user/info',
             method: 'GET',
             headers: {
-              Authorization: `${session.token_type} ${session.access_token}`,
+              Authorization: `${session.token_type} ${
+                session.access_token || session.id_token
+              }`,
             },
           });
           context.body = data;
@@ -232,39 +300,6 @@ export const authMiddleWare = ({
       return setError2({
         context: context as Context,
       });
-    }
-
-    if (context.path.startsWith(apiPrefixPath)) {
-      if (!session.tokenInfo) {
-        return setError2({ context: context as Context });
-      } else if (session.tokenInfo.exp! * 1000 < Date.now() - 1000 * 60) {
-        try {
-          const { data } = await axios.post<{
-            access_token: string;
-            token_type: 'Bearer';
-            expires_in: string;
-            refresh_token: string;
-            id_token: string;
-          }>(
-            authServerOrigin + '/auth/token',
-            {},
-            {
-              params: {
-                refresh_token: session.refresh_token,
-                client_id: clientId,
-                client_secret: clientSecret,
-                grant_type: 'refresh_token',
-              },
-            }
-          );
-          const tokenInfo = getJwtInfo(data.id_token, jwtPublicKey);
-          Object.assign(session, data);
-          session.tokenInfo = tokenInfo;
-          return next();
-        } catch (e) {
-          return setError2({ context: context as Context });
-        }
-      }
     }
     return next();
   };
