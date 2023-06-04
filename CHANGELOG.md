@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.17](https://github.com/wittyna/wittyna/compare/v0.0.16...v0.0.17) (2023-06-04)
+
+
+### Bug Fixes
+
+* **auth middleWare:** bug 修复 ([65a5a96](https://github.com/wittyna/wittyna/commit/65a5a96e2219c6136ca998f01b926356e595e165))
+
 ## [0.0.16](https://github.com/wittyna/wittyna/compare/v0.0.15...v0.0.16) (2023-06-04)
 
 
