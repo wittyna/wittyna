@@ -178,9 +178,9 @@ export const authMiddleWare = ({
     // 如果带header authorization token
     if (context.headers.authorization) {
       const [tokenType, token] = context.headers.authorization.split(' ');
+      session.token_type = tokenType;
       if (token.indexOf('.') > -1) {
         session.id_token = token;
-        session.token_type = tokenType;
         session.tokenInfo = getJwtInfo(token, jwtPublicKey);
       } else {
         session.access_token = token;
