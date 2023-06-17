@@ -6,7 +6,7 @@ import {
 } from './type.mjs';
 import Koa from 'koa';
 import { ParamType } from './enum.mjs';
-import { File as MulterFile } from '@koa/multer';
+import { type File as MulterFile } from '@koa/multer';
 import { at, groupBy } from 'lodash-es';
 import { paramValidate } from './paramValidate.mjs';
 import { routerPathConcat } from '../utils/index.mjs';

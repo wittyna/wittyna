@@ -49,4 +49,4 @@ interface Props {
 export * from './controller/index.mjs';
 export * from './middleWare/index.mjs';
 export * from './utils/index.mjs';
-export { File as BodyFile } from '@koa/multer';
+export { type File as BodyFile } from '@koa/multer';
