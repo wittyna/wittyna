@@ -110,9 +110,6 @@ function transformByDataType(param: RouterParam, value: unknown) {
         return Boolean(value);
       // 其他类型
       default:
-        if (typeof value === 'string') {
-          return JSON.parse(value as string);
-        }
         return value;
     }
   } catch (e) {
