@@ -1,5 +1,6 @@
 import { ControllerPrototype, DataType, RouterOption } from '../type.mjs';
 import { Method, ParamType } from '../enum.mjs';
+import { remove } from 'lodash-es';
 
 export function setRouterOptionMap(
   prototype: ControllerPrototype,
@@ -11,6 +12,11 @@ export function setRouterOptionMap(
   }
   if (!prototype.routerOptionMap[name]) {
     prototype.routerOptionMap[name] = option;
+    if (prototype.routerOptionMap[name].params) {
+      prototype.routerOptionMap[name].params = prototype.routerOptionMap[
+        name
+      ].params!.filter((param) => param.type);
+    }
   } else {
     if (!option.params) {
       option.params = [];
