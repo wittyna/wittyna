@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.23](https://github.com/wittyna/wittyna/compare/v0.0.22...v0.0.23) (2023-06-18)
+
+
+### Bug Fixes
+
+* **auth middleWare:** 值类型转换 ([4689706](https://github.com/wittyna/wittyna/commit/4689706bfe10cefe4118a01d0f79f0b04fbfee81))
+
 ## [0.0.22](https://github.com/wittyna/wittyna/compare/v0.0.21...v0.0.22) (2023-06-18)
 
 
