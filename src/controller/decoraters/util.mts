@@ -30,7 +30,9 @@ export function setRouterOptionMap(
           Object.assign(find, { ...param, validates: find.validates });
         }
       } else {
-        prototype.routerOptionMap[name].params!.push(param);
+        if (param.type) {
+          prototype.routerOptionMap[name].params!.push(param);
+        }
       }
     }
     option.params = prototype.routerOptionMap[name].params;

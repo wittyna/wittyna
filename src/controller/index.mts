@@ -42,7 +42,6 @@ function getParams(
   context: Koa.ParameterizedContext & RouterParamContext
 ): unknown[] {
   return params
-    .filter((one) => one.param)
     .sort((a, b) => a.index - b.index)
     .map((param) => transformByDataType(param, getParamValue(param, context)));
 }
