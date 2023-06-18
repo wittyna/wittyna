@@ -3,7 +3,7 @@ import { Method, ParamType } from './enum.mjs';
 export interface ControllerPrototype {
   prefix: string;
   routerOptionMap: {
-    [name: string]: RouterOption;
+    [functionName: string]: RouterOption;
   };
 }
 
@@ -17,27 +17,27 @@ export interface RouterOption {
 export interface RouterParam {
   index: number;
   type?: ParamType;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  dataType?: Function;
+  dataType?: DataType;
   param?: string;
   validates?: Validate[];
 }
+
+export type DataType =
+  | typeof Number
+  | typeof String
+  | typeof Boolean
+  | typeof Object;
+
 export interface Validate {
   type: ValidateType;
   [ValidateType.REQUIRED]?: ValidateTypeDetail<boolean>;
   [ValidateType.REG]?: ValidateTypeDetail<RegExp>;
-  [ValidateType.NUMBER]?: ValidateTypeDetail<ValidateNumberOptions>;
   message?: string;
-}
-
-export interface ValidateNumberOptions {
-  range: [number, number];
 }
 
 export enum ValidateType {
   REQUIRED = 'required',
   REG = 'reg',
-  NUMBER = 'number',
 }
 
 export interface ValidateTypeDetail<T> {
@@ -47,13 +47,4 @@ export interface ValidateTypeDetail<T> {
 
 export interface ControllerInterface {
   [name: string]: (...args: unknown[]) => Promise<unknown>;
-}
-
-export interface DataClassPrototype {
-  __isDataClass: boolean;
-  props: {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    dataType: Function;
-    isArray?: boolean;
-  }[];
 }

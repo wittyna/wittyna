@@ -1,5 +1,5 @@
 import { at, isEmpty } from 'lodash-es';
-import { RouterParam, ValidateNumberOptions, ValidateType } from './type.mjs';
+import { RouterParam, ValidateType } from './type.mjs';
 import { ResponseError } from '../middleWare/index.mjs';
 import { ResponseErrorType } from '../middleWare/response/Error.mjs';
 
@@ -29,31 +29,6 @@ function regValidate(value: unknown, reg: RegExp, path?: string): boolean {
     if (value) {
       const [v] = at(value as Record<string, unknown>, path);
       return regValidate(v, reg);
-    }
-  }
-  return true;
-}
-
-function numberValidate(
-  value: unknown,
-  options?: ValidateNumberOptions,
-  path?: string
-): boolean {
-  if (!path) {
-    if (typeof value === 'number') {
-      if (!options) {
-        return true;
-      } else {
-        if (options.range) {
-          return value > options.range[0] && value < options.range[1];
-        }
-      }
-    }
-    return false;
-  } else {
-    if (value) {
-      const [v] = at(value as Record<string, unknown>, path);
-      return numberValidate(v, options);
     }
   }
   return true;
@@ -99,25 +74,6 @@ export function paramValidate(
             throw new ResponseError({
               error: ResponseErrorType.INVALID_REQUEST,
               error_description: `${type} parameter error: illegal value, key: ${
-                param + (path ? (param ? '.' + path : path) : '') || type
-              }`,
-            });
-          }
-        }
-        break;
-      }
-      case ValidateType.NUMBER: {
-        const { value: options, path } = validate[ValidateType.NUMBER]!;
-        if (!numberValidate(value, options!, path)) {
-          if (validate.message) {
-            throw new ResponseError({
-              error: ResponseErrorType.INVALID_REQUEST,
-              error_description: `${type} parameter error: ${validate.message}`,
-            });
-          } else {
-            throw new ResponseError({
-              error: ResponseErrorType.INVALID_REQUEST,
-              error_description: `${type} parameter error: value should be a legal number value, key: ${
                 param + (path ? (param ? '.' + path : path) : '') || type
               }`,
             });

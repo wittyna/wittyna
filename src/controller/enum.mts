@@ -17,5 +17,4 @@ export enum ParamType {
   QUERY = 'query',
   PARAM = 'param',
   SESSION = 'session',
-  MONGODB = 'mongodb',
 }
