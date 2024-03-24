@@ -32,8 +32,8 @@ import {
   Put,
   ResponseError,
   Required,
-} from '../../../src/index.mjs';
-import { sessionMiddleWare, staticMiddleWare } from '../../../src/index.mjs';
+} from 'wittyna';
+import { sessionMiddleWare, staticMiddleWare } from 'wittyna';
 import { Context } from 'koa';
 import { dirname } from 'path';
 
