@@ -180,6 +180,7 @@ export const authMiddleWare = ({
     if (context.headers.authorization) {
       const [tokenType, token] = context.headers.authorization.split(' ');
       session.token_type = tokenType;
+      // 如果是jwt
       if (token.indexOf('.') > -1) {
         session.id_token = token;
         session.tokenInfo = getJwtInfo(token, jwtPublicKey);

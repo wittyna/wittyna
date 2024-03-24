@@ -17,7 +17,7 @@ import { Context } from 'koa';
 import { dirname } from 'path';
 
 @Controller('hello')
-export class ImageToPptController {
+export class HelloController {
   @Get('123')
   async get(@Query('a') b: number, ctx: Context): Promise<unknown> {
     const session = ctx.session as unknown as { count: number };
@@ -33,41 +33,11 @@ export class ImageToPptController {
     );
     return { count: session.count, b: typeof b };
   }
-
-  // @Post('555')
-  // async xxxxx(@Query('a') a: string): Promise<unknown> {
-  //   return a;
-  // }
-  //
-  // /**
-  //  * 文件上传
-  //  * @param files
-  //  */
-  // @Post()
-  // async postXx(
-  //   @Body('file') files: BodyFile[],
-  //   @Body('a') a: string
-  // ): Promise<unknown> {
-  //   return { hello: 'world!' };
-  // }
-  // @Put()
-  // async aa(@Body('a') a: string, @Body('b') b: BodyFile[]): Promise<unknown> {
-  //   console.log(b);
-  //   return { hello: a };
-  // }
-  //
-  // /**
-  //  * 异常
-  //  */
-  // @Get('error')
-  // async xx(): Promise<unknown> {
-  //   throw new ResponseError({ error: '0', error_description: '错误!' });
-  // }
 }
 
 startServer({
   port: 3000,
-  controllers: [new ImageToPptController()],
+  controllers: [new HelloController()],
   routerPrefix: '/api',
   middlewares: [
     staticMiddleWare({

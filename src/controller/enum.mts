@@ -1,4 +1,3 @@
-import {} from '@koa/router';
 export enum Method {
   GET = 'get',
   POST = 'post',
