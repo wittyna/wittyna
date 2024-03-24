@@ -1,6 +1,6 @@
 # wittyna
 ## 简介
-###### 一个基于KOA的服务端应用框架。对比 nestjs, midway 等框架，wittyna更加轻量，灵活，简单。
+###### 一个基于KOA的服务端框架。对比 nestjs, midway 等框架，wittyna更加轻量，灵活，简单。
 
 ## 特性
 * 控制器类、装饰器轻松实现路由分发

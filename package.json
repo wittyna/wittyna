@@ -1,7 +1,7 @@
 {
   "name": "wittyna",
   "type": "module",
-  "version": "0.0.23",
+  "version": "0.0.26",
   "main": "dist/index.js",
   "types": "dist/index.d.mts",
   "typings": "dist/index.d.mts",
