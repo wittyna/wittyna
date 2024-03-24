@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.0](https://github.com/wittyna/wittyna/compare/v0.0.23...v0.1.0) (2024-03-24)
+
+
+### Features
+
+* readme.md修改 ([9ccfb02](https://github.com/wittyna/wittyna/commit/9ccfb022423020056ac5b4b46884aee98b6d5d2b))
+
+
+### Bug Fixes
+
+* **auth middleWare:** 值类型转换 ([19a34d6](https://github.com/wittyna/wittyna/commit/19a34d67dd1b73d332b5be49434e021c2a406b51))
+
 ## [0.0.23](https://github.com/wittyna/wittyna/compare/v0.0.22...v0.0.23) (2023-06-18)
 
 
